@@ -69,7 +69,7 @@ resource "aws_route53_health_check" "route53_health_check" {
   }
 }
 
-resource "aws_route53_record" "route53_route53_record" {
+resource "aws_route53_record" "route53_record" {
   count   = "${var.count}"
   zone_id = "${var.route53_hosted_zone_id}"
   name    = "${var.domain}"
