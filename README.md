@@ -13,3 +13,26 @@ This is useful when
 
 Alternatives
 - When static IP (EIP) is not needed, ELB with auto scaling group should be considered
+
+### Example
+```HCL
+module "static-ip-ec2-instances" {
+  source                 = "github.com/cxmcc/tf_aws_ec2_auto_recovery"
+  count                  = 2
+  domain                 = "static-ip.example.com"
+  route53_hosted_zone_id = "ZZZZFFFFEEEENNNN"
+  ami                    = "ami-1234567"
+  health_check_path      = "/route53_health_check"
+  instance_type          = "m3.medium"
+  name                   = "static-ip-instance"
+  key_name               = "default"
+  subnet_ids             = ["subnet-123456", "subnet-234567"]
+  vpc_security_group_ids = ["sg-1234567"]
+
+  user_data = <<EOF
+#cloud-config
+hostname: static-ip-instance
+manage_etc_hosts: true
+EOF
+}
+```
