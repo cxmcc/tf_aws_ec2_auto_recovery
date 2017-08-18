@@ -12,7 +12,8 @@ This is useful when
 - EC2 instances type is one of C3, C4, M3, R3, and T2
 
 Alternatives
-- When static IP (EIP) is not needed, ELB with auto scaling group should be considered
+- When static IP (EIP) is not needed, ELB with auto scaling group should be considered.
+- An auto scaling group with (1,1,1) configured and attach EIP at provision time. (need IAM role for instance)
 
 ### Components
 - `aws_eip.eip`: an EIP to be assigned to the EC2 instance
