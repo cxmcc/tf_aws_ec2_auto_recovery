@@ -14,6 +14,13 @@ This is useful when
 Alternatives
 - When static IP (EIP) is not needed, ELB with auto scaling group should be considered
 
+### Components
+`aws_eip.eip`: an EIP to be assigned to the EC2 instance
+`aws_instance.instance`: the EC2 instance
+`aws_cloudwatch_metric_alarm.auto_recovery_alarm`: the Cloudwatch alarm to trigger EC2 instance Auto Recovery
+`aws_route53_health_check.route53_health_check`: an HTTP health check for the health of the EC2 instance (Assuming the instance serves HTTP traffic and has a health check)
+`aws_route53_record.route53_record`: a Route53 record point to the EIP attached to the EC2 instnace with healthcheck.
+
 ### Example
 ```HCL
 module "static-ip-ec2-instances" {
