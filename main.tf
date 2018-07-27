@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 resource "aws_eip" "eip" {
   count = "${var.count}"
   vpc   = true
@@ -49,7 +51,7 @@ resource "aws_cloudwatch_metric_alarm" "auto_recovery_alarm" {
     InstanceId = "${element(aws_instance.instance.*.id, count.index)}"
   }
 
-  alarm_actions = ["arn:aws:automate:${substr(element(aws_instance.instance.*.availability_zone, count.index), 0, length(element(aws_instance.instance.*.availability_zone, count.index)) - 1)}:ec2:recover"]
+  alarm_actions = ["arn:aws:automate:${data.aws_region.current.name}:ec2:recover"]
 
   threshold         = "1"
   alarm_description = "Auto recover the EC2 instance if Status Check fails."
